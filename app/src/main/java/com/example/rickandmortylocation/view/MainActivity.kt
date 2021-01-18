@@ -1,7 +1,8 @@
-package com.example.rickandmortylocation
+package com.example.rickandmortylocation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.rickandmortylocation.R
 
 class MainActivity : AppCompatActivity() {
 
