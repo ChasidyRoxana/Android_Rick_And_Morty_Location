@@ -4,7 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-@SerialName("result")
 data class Location(
 
     @SerialName("id")
@@ -24,7 +23,4 @@ data class Location(
 
     @SerialName("url")
     val url: String,
-
-    @SerialName("created")
-    val created: String
 )

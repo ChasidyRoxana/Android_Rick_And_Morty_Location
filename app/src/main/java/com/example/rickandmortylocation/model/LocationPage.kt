@@ -10,5 +10,5 @@ data class LocationPage(
     val info: Info,
 
     @SerialName("results")
-    val results: List<Location>
+    val results: MutableList<Location>
 )

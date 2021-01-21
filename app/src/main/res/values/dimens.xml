@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_activity">16dp</dimen>
+    <dimen name="padding_in_card">10dp</dimen>
 
     <dimen name="size_text_location_name">20sp</dimen>
     <dimen name="size_text_location_type">18sp</dimen>
+
+    <dimen name="margin_start_name_and_type">5dp</dimen>
+    <dimen name="margin_horizontal_item">24dp</dimen>
+    <dimen name="margin_vertical_item">8dp</dimen>
+    <dimen name="margin_horizontal_progress_bar">16dp</dimen>
 </resources>

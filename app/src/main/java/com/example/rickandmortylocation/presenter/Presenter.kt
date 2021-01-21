@@ -1,27 +1,37 @@
 package com.example.rickandmortylocation.presenter
 
-import com.example.rickandmortylocation.model.LocationPage
-import com.example.rickandmortylocation.network.NetworkService
-import com.example.rickandmortylocation.view.MainFragment
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.rickandmortylocation.Listener
+import com.example.rickandmortylocation.interfaces.MainContract
+import com.example.rickandmortylocation.model.Location
+import com.example.rickandmortylocation.model.Repository
+import java.lang.Exception
 
-class Presenter(private val view: MainFragment, networkService: NetworkService) {
+class Presenter(private val view: MainContract.MainView, private val repository: Repository) :
+    MainContract.MAinPresenter {
 
-    private val locationApiService = networkService.createLocationApiService()
+    private val listener = object : Listener {
+        override fun onError(e: Exception) {
+            view.showToast("Не загрузилось ничего")
+//            view.setProgressBarVisibility(false)
+        }
 
-    fun onCreate() {
-        val locationCallback = locationApiService.getPageLocation(1)
-        locationCallback.enqueue(object : Callback<LocationPage> {
-            override fun onFailure(call: Call<LocationPage>, t: Throwable) {
-                t.printStackTrace()
-            }
+        override fun onSuccess(locationList: List<Location>) {
+            view.setRecyclerView(locationList)
+//            view.setProgressBarVisibility(false)
+            view.showToast("Получены локации до номера ${locationList[locationList.lastIndex].id}")
+        }
+    }
 
-            override fun onResponse(call: Call<LocationPage>, response: Response<LocationPage>) {
-                val locationPage: LocationPage? = response.body()
-                view.setRecyclerView(locationPage?.results ?: emptyList())
-            }
-        })
+    override fun onCreate() {
+        val locations = repository.loadLocations()
+        view.setRecyclerView(locations)
+        repository.listener = listener
+        view.setProgressBarVisibility(true)
+        repository.getNextLocations() // этого тут быть не должно
+    }
+
+    override fun onButtonClicked() {
+        view.setProgressBarVisibility(true)
+        repository.getNextLocations()
     }
 }

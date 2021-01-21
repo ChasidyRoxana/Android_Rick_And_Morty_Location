@@ -8,7 +8,6 @@ import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface LocationApiService {
-
 //    @GET("location/")
 //    fun getLocation(): Call<LocationPage>
 //
