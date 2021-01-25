@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="item_description_type">Тип:</string>
+
+    <string name="description_reconnect">Переподключение</string>
+
+    <string name="error_connection">Не получилось загрузить данные. Нажмите, чтобы повторить попытку</string>
+
+    <plurals name="residents_in_location">
+        <item quantity="one">%1$s была выбрана. В этой локации %2$d житель</item>
+        <item quantity="few">%1$s была выбрана. В этой локации %2$d жителя</item>
+        <item quantity="many">%1$s была выбрана. В этой локации %2$d жителей</item>
+        <item quantity="other">%1$s была выбрана. В этой локации %2$d жителей</item>
+    </plurals>
+</resources>

@@ -49,10 +49,9 @@ class MainFragment : Fragment(R.layout.fragment_main), MainContract.MainView {
         object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                Log.i("TAG", "scroll listener")
                 val itemCount: Int = layoutManager.itemCount
                 val lastVisibleItem: Int = layoutManager.findLastVisibleItemPosition()
-                if (lastVisibleItem >= itemCount - 1) {
+                if (lastVisibleItem == itemCount - 1) {
                     presenter.onRequestNextLocations()
                 }
             }
