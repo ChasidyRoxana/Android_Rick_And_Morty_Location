@@ -1,11 +1,8 @@
-package com.example.rickandmortylocation.network
+package com.example.rickandmortylocation.model.network
 
-import com.example.rickandmortylocation.model.Location
-import com.example.rickandmortylocation.model.LocationPage
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import retrofit2.http.QueryMap
 
 interface LocationApiService {
 //    @GET("location/")
@@ -17,7 +14,7 @@ interface LocationApiService {
 //    ): Call<LocationPage>
 
     @GET("location/")
-    fun getPageLocation( //fixme fun name
+    fun getLocationPage( //fixme fun name
         @Query("page") page: Int
     ): Call<LocationPage>
 

@@ -4,8 +4,8 @@
     <dimen name="padding_in_card">10dp</dimen>
     <dimen name="padding_vertical_recyclerview">10dp</dimen>
 
-    <dimen name="size_text_location_name">22sp</dimen>
-    <dimen name="size_text_location_type">18sp</dimen>
+    <dimen name="text_size_location_name">22sp</dimen>
+    <dimen name="text_size_location_type">18sp</dimen>
 
     <dimen name="margin_start_name_and_type">5dp</dimen>
     <dimen name="margin_horizontal_item">24dp</dimen>

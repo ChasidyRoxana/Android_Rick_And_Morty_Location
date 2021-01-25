@@ -1,10 +1,10 @@
-package com.example.rickandmortylocation.model
+package com.example.rickandmortylocation.model.network
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Location(
+class Location(
 
     @SerialName("id")
     val id: Int,

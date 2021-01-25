@@ -1,10 +1,10 @@
-package com.example.rickandmortylocation.model
+package com.example.rickandmortylocation.model.network
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Info(
+class Info(
 
     @SerialName("count")
     val count: Int,

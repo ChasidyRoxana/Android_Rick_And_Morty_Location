@@ -1,10 +1,12 @@
-package com.example.rickandmortylocation.model
+package com.example.rickandmortylocation.model.network
 
+import com.example.rickandmortylocation.model.network.Info
+import com.example.rickandmortylocation.model.network.Location
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LocationPage(
+class LocationPage(
 
     @SerialName("info")
     val info: Info,

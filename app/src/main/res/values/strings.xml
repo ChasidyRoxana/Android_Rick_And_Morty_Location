@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Rick And Morty Location</string>
 
-    <string name="description_type_item">Type:</string>
+    <string name="item_description_type">Type:</string>
+
+    <string name="description_reconnect">Reconnect</string>
+
+    <string name="error_connection">Не получилось загрузить данные. Нажмите, чтобы повторить попытку</string>
+
+    <plurals name="residents_in_location">
+        <item quantity="one">%1$s was clicked. There is %2$d resident in this location</item>
+        <item quantity="other">%1$s was clicked. There are %2$d residents in this location</item>
+    </plurals>
 </resources>

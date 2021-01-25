@@ -3,11 +3,11 @@ package com.example.rickandmortylocation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rickandmortylocation.viewholder.LocationViewHolder
+import com.example.rickandmortylocation.adapter.viewholder.LocationViewHolder
 import com.example.rickandmortylocation.R
-import com.example.rickandmortylocation.model.Location
+import com.example.rickandmortylocation.model.network.Location
 
-class ListAdapter(private val showToast: (String) -> Unit) :
+class LocationAdapter(private val showToast: (Int, Int, String) -> Unit) :
     RecyclerView.Adapter<LocationViewHolder>() {
 
     private val listLocation: MutableList<Location> = mutableListOf()
@@ -26,7 +26,7 @@ class ListAdapter(private val showToast: (String) -> Unit) :
         holder.bind(location, showToast)
     }
 
-    fun setListLocation(listLocation: List<Location>) {
+    fun updateListLocation(listLocation: List<Location>) {
         this.listLocation.addAll(listLocation)
         notifyDataSetChanged()
     }

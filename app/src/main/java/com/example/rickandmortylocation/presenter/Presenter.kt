@@ -1,10 +1,11 @@
 package com.example.rickandmortylocation.presenter
 
-import com.example.rickandmortylocation.interfaces.LoadPageListener
+import com.example.rickandmortylocation.interfaces.RequestLocationPageListener
 import com.example.rickandmortylocation.interfaces.MainContract
-import com.example.rickandmortylocation.model.Location
+import com.example.rickandmortylocation.model.network.Location
 import com.example.rickandmortylocation.model.Repository
 import java.lang.Exception
+import java.net.UnknownHostException
 
 class Presenter(private val view: MainContract.MainView, private val repository: Repository) :
     MainContract.MAinPresenter {
@@ -13,32 +14,33 @@ class Presenter(private val view: MainContract.MainView, private val repository:
 
     override fun onCreate() {
         val locations = repository.loadLocations()
-        view.setRecyclerView(locations)
-
-        onLoadNextLocation() // этого тут быть не должно
+        view.updateRecyclerView(locations)
+        onRequestNextLocations()
     }
 
-    override fun onLoadNextLocation() {
+    override fun onRequestNextLocations() {
         if (!loading) {
             loadingState(true)
-            repository.setLoadPageListener(getLoadPageListener())
-            repository.getNextLocations()
+            view.setReconnectionButtonVisibility(false)
+            repository.setRequestLocationLoadPageListener(getLoadPageListener())
+            repository.requestNextLocations()
         }
     }
 
-    private fun getLoadPageListener(): LoadPageListener =
-        object : LoadPageListener {
+    private fun getLoadPageListener(): RequestLocationPageListener =
+        object : RequestLocationPageListener {
             override fun onError(e: Exception) {
-                view.showToast("Не загрузилось ничего")
                 loadingState(false)
+                if (e is UnknownHostException) {
+                    view.setReconnectionButtonVisibility(true)
+                }
             }
 
             override fun onSuccess(locationList: List<Location>, moreData: Boolean) {
-                view.setRecyclerView(locationList)
-                view.showToast("Получены локации до номера ${locationList[locationList.lastIndex].id}")
+                view.updateRecyclerView(locationList)
                 loadingState(false)
                 if (!moreData) {
-                    view.removeScrollListeners()
+                    view.clearScrollListeners()
                 }
             }
         }
