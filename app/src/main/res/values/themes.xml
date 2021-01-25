@@ -27,7 +27,6 @@
     <style name="progressBar" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@android:color/holo_blue_dark</item>
         <item name="android:indeterminate">true</item>
-        <item name="android:visibility">invisible</item>
     </style>
 
 </resources>

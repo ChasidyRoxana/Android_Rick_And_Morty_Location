@@ -1,7 +1,6 @@
 package com.example.rickandmortylocation.model
 
-import android.util.Log
-import com.example.rickandmortylocation.Listener
+import com.example.rickandmortylocation.interfaces.LoadPageListener
 import com.example.rickandmortylocation.network.NetworkService
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +14,11 @@ class Repository(networkService: NetworkService) {
     private val locationList: MutableList<Location> = mutableListOf()
     private var locationInfo: Info? = null
     private var currentPage: Int = 0
-    var listener: Listener? = null
+    private var loadPageListener: LoadPageListener? = null
+
+    fun setLoadPageListener(loadPageListener: LoadPageListener) {
+        this.loadPageListener = loadPageListener
+    }
 
     fun loadLocations() = locationList
 
@@ -24,26 +27,29 @@ class Repository(networkService: NetworkService) {
             val locationPageCallback = locationApiService.getPageLocation(currentPage + 1)
             callbackPageProcessing(locationPageCallback)
         } else {
-            listener?.onError(Exception())
+            loadPageListener?.onError(Exception())
         }
     }
 
     private fun callbackPageProcessing(callback: Call<LocationPage>) {
         callback.enqueue(object : Callback<LocationPage> {
             override fun onFailure(call: Call<LocationPage>, t: Throwable) {
-                listener?.onError(t as Exception)
+                loadPageListener?.onError(t as Exception)
             }
 
             override fun onResponse(call: Call<LocationPage>, response: Response<LocationPage>) {
                 val locationPage: LocationPage? = response.body()
                 locationInfo = locationPage?.info
                 val locations: MutableList<Location> = locationPage?.results ?: mutableListOf()
-                if (locations.isNotEmpty()){
+                if (locations.isNotEmpty()) {
                     currentPage++
                 }
+                val moreData: Boolean = locationList.size != locationInfo?.pages
                 locationList.addAll(locations)
-                listener?.onSuccess(locations)
+                loadPageListener?.onSuccess(locations, moreData)
             }
         })
     }
+
+
 }

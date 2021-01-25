@@ -2,8 +2,9 @@
 <resources>
     <dimen name="padding_activity">16dp</dimen>
     <dimen name="padding_in_card">10dp</dimen>
+    <dimen name="padding_vertical_recyclerview">10dp</dimen>
 
-    <dimen name="size_text_location_name">20sp</dimen>
+    <dimen name="size_text_location_name">22sp</dimen>
     <dimen name="size_text_location_type">18sp</dimen>
 
     <dimen name="margin_start_name_and_type">5dp</dimen>

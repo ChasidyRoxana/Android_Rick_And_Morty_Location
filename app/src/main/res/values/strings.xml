@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Rick And Morty Location</string>
 
-    <string name="item_name">Location:</string>
-    <string name="item_type">Type:</string>
+    <string name="description_type_item">Type:</string>
 </resources>

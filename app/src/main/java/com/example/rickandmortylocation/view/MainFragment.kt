@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmortylocation.App
 import com.example.rickandmortylocation.adapter.ListAdapter
 import com.example.rickandmortylocation.model.Location
@@ -18,7 +19,10 @@ import kotlinx.android.synthetic.main.fragment_main.*
 class MainFragment : Fragment(R.layout.fragment_main), MainContract.MainView {
 
     private lateinit var presenter: MainContract.MAinPresenter
-    private var listAdapter: ListAdapter? = null
+    private lateinit var listAdapter: ListAdapter
+    private lateinit var layoutManager: LinearLayoutManager
+
+//    private val onScrollListener: RecyclerView.OnScrollListener = createScrollListener()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,23 +30,39 @@ class MainFragment : Fragment(R.layout.fragment_main), MainContract.MainView {
         presenter = Presenter(this, app.repository)
         setUpAdapter()
         presenter.onCreate()
-//        initListeners()
+        initListeners()
     }
 
     private fun setUpAdapter() {
         listAdapter = ListAdapter(::showToast)
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = listAdapter
-        }
+        layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = listAdapter
+        recyclerView.layoutManager = layoutManager
     }
 
-//    private fun initListeners() {
-////        buttonNextPage.setOnClickListener { presenter.onButtonClicked() }
-//    }
+    private fun initListeners() {
+        recyclerView.addOnScrollListener(createScrollListener())
+    }
+
+    private fun createScrollListener(): RecyclerView.OnScrollListener =
+        object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val itemCount: Int = layoutManager.itemCount
+                val lastVisibleItem: Int = layoutManager.findLastVisibleItemPosition()
+                Log.i("TAG", "$itemCount, $lastVisibleItem")
+                if (lastVisibleItem >= itemCount - 1) {
+                    presenter.onLoadNextLocation()
+                }
+            }
+        }
+
+    override fun removeScrollListeners() {
+        recyclerView.clearOnScrollListeners()
+    }
 
     override fun setRecyclerView(locationList: List<Location>) {
-        listAdapter?.setListLocation(locationList)
+        listAdapter.setListLocation(locationList)
     }
 
     override fun showToast(text: String) {

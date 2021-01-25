@@ -14,16 +14,17 @@
         android:padding="@dimen/padding_in_card">
 
         <TextView
-            android:id="@+id/tvDescriptionNameItem"
+            android:id="@+id/tvLocationName"
             style="@style/textStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/item_name"
+            android:textColor="@color/text_gray"
             android:textSize="@dimen/size_text_location_name"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/tvLocationName"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Earth" />
 
         <TextView
             android:id="@+id/tvDescriptionTypeItem"
@@ -31,25 +32,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/item_type"
+            android:text="@string/description_type_item"
             android:textSize="@dimen/size_text_location_type"
             app:layout_constraintEnd_toStartOf="@+id/tvLocationType"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvLocationName" />
-
-        <TextView
-            android:id="@+id/tvLocationName"
-            style="@style/textStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_start_name_and_type"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/size_text_location_name"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvDescriptionNameItem"
-            app:layout_constraintTop_toTopOf="@+id/tvDescriptionNameItem"
-            tools:text="Earth" />
 
         <TextView
             android:id="@+id/tvLocationType"

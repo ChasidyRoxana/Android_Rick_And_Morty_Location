@@ -5,6 +5,7 @@ import com.example.rickandmortylocation.model.Location
 interface MainContract {
     interface MainView {
         fun setRecyclerView(locationList: List<Location>)
+        fun removeScrollListeners()
 
         fun showToast(text: String)//
         fun setProgressBarVisibility(visibility: Boolean)//
@@ -13,6 +14,6 @@ interface MainContract {
     interface MAinPresenter {
         fun onCreate()
 
-        fun onButtonClicked()//
+        fun onLoadNextLocation()//
     }
 }
