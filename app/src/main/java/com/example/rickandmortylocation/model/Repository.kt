@@ -14,46 +14,61 @@ class Repository(networkService: NetworkService) {
 
     private val locationApiService = networkService.createLocationApiService()
 
-    private val locationList: MutableList<Location> = mutableListOf()
+    private val locations: MutableList<Location> = mutableListOf()
     private var locationInfo: Info? = null
     private var currentPage: Int = 0
     private var requestLocationPageListener: RequestLocationPageListener? = null
 
-    fun setRequestLocationLoadPageListener(requestLocationPageListener: RequestLocationPageListener) {
+    var isFirstLaunch = true
+        private set
+
+    var isLoading: Boolean = false
+        private set
+
+    var isReconnection: Boolean = false
+        private set
+
+    var isAllDataLoaded: Boolean = false
+        private set
+
+    fun setRequestLocationPageListener(requestLocationPageListener: RequestLocationPageListener) {
         this.requestLocationPageListener = requestLocationPageListener
     }
 
     fun loadLocations() =
-        locationList
+        locations
 
     fun requestNextLocations() {
-        if (currentPage == 0 || locationInfo?.next != null) {
+        if (!isLoading && (currentPage == 0 || locationInfo?.next != null)) {
+            isFirstLaunch = false
+            isLoading = true
             val locationPageCallback = locationApiService.getLocationPage(currentPage + 1)
             callbackPageProcessing(locationPageCallback)
         } else {
             requestLocationPageListener?.onError(Exception())
         }
+
     }
 
     private fun callbackPageProcessing(callback: Call<LocationPage>) {
         callback.enqueue(object : Callback<LocationPage> {
             override fun onFailure(call: Call<LocationPage>, t: Throwable) {
+                isLoading = false
+                isReconnection = true
                 requestLocationPageListener?.onError(t as Exception)
             }
 
             override fun onResponse(call: Call<LocationPage>, response: Response<LocationPage>) {
                 val locationPage: LocationPage? = response.body()
                 locationInfo = locationPage?.info
-                val locations: MutableList<Location> = locationPage?.results ?: mutableListOf()
-                if (locations.isNotEmpty()) {
-                    currentPage++
-                }
-                locationList.addAll(locations)
-                val moreData: Boolean = locationList.size != locationInfo?.count
-                requestLocationPageListener?.onSuccess(locations, moreData)
+                val locationsFromResponse = locationPage?.results ?: mutableListOf()
+                locations.addAll(locationsFromResponse)
+                isAllDataLoaded = locations.size == locationInfo?.count
+                currentPage++
+                isLoading = false
+                isReconnection = false
+                requestLocationPageListener?.onSuccess(locationsFromResponse)
             }
         })
     }
-
-
 }

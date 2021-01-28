@@ -9,8 +9,4 @@ class App : Application() {
     private val networkService = NetworkService()
     val repository = Repository(networkService)
 
-//    override fun onCreate() {
-//        super.onCreate()
-//
-//    } // todo delete
 }

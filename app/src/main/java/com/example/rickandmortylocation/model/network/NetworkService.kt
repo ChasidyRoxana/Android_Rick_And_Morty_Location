@@ -26,7 +26,8 @@ class NetworkService {
         .client(client)
         .build()
 
-    fun createLocationApiService(): LocationApiService = retrofit.create()
+    fun createLocationApiService(): LocationApiService =
+        retrofit.create()
 
     private companion object {
         private const val BASE_URL = "https://rickandmortyapi.com/api/"

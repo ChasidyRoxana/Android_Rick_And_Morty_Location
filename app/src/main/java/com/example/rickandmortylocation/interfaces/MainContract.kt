@@ -4,16 +4,20 @@ import androidx.annotation.PluralsRes
 import com.example.rickandmortylocation.model.network.Location
 
 interface MainContract {
+
     interface MainView {
-        fun updateRecyclerView(locationList: List<Location>)
+        fun setupAdapter()
+        fun addItemsToRecyclerView(locations: List<Location>) // кажется этого тут быть не должно
         fun showToast(@PluralsRes resId: Int, countResidents: Int, locationName: String)
-        fun clearScrollListeners()
-        fun setReconnectionButtonVisibility(visibility: Boolean)
-        fun setProgressBarVisibility(visibility: Boolean)
+        fun addOnScrollListener()
+        fun clearOnScrollListeners()
+        fun setReconnectionButtonVisibility(isVisible: Boolean)
+        fun setProgressBarVisibility(isVisible: Boolean)
     }
 
     interface MAinPresenter {
         fun onCreate()
-        fun onRequestNextLocations()
+        fun onScrolledToLastElement()
+        fun onReconnectionButtonClicked()
     }
 }

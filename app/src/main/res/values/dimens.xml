@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="padding_activity">16dp</dimen>
-    <dimen name="padding_in_card">10dp</dimen>
-    <dimen name="padding_vertical_recyclerview">10dp</dimen>
+    <dimen name="padding_in_card">16dp</dimen>
+    <dimen name="padding_vertical_recyclerview">24dp</dimen>
 
     <dimen name="text_size_location_name">22sp</dimen>
     <dimen name="text_size_location_type">18sp</dimen>
+    <dimen name="text_size_button_reconnection">16sp</dimen>
 
-    <dimen name="margin_start_name_and_type">5dp</dimen>
-    <dimen name="margin_horizontal_item">24dp</dimen>
-    <dimen name="margin_vertical_item">8dp</dimen>
-    <dimen name="margin_horizontal_progress_bar">16dp</dimen>
+    <dimen name="margin_start_type">8dp</dimen>
+    <dimen name="margin_top_type">8dp</dimen>
+    <dimen name="margin_horizontal_item">16dp</dimen>
+    <dimen name="margin_vertical_item">4dp</dimen>
+    <dimen name="margin_horizontal_button_reconnection">32dp</dimen>
+    <dimen name="margin_bottom_button_reconnection">8dp</dimen>
 </resources>

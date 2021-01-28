@@ -18,16 +18,17 @@ class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.containerInItem.setBackgroundResource(getColorResForLocation(location.id))
     }
 
-    private fun getColorResForLocation(locationId: Int): Int = when (locationId % 10) {
-        1 -> R.color.background_item_cyan
-        2 -> R.color.background_item_yellow
-        3 -> R.color.background_item_green
-        4 -> R.color.background_item_magenta
-        5 -> R.color.background_item_blue
-        6 -> R.color.background_item_red
-        7 -> R.color.background_item_orange
-        8 -> R.color.background_item_pink
-        9 -> R.color.background_item_light_green
-        else -> R.color.background_item_gray
-    }
+    private fun getColorResForLocation(locationId: Int): Int =
+        when (locationId % 10) {
+            1 -> R.color.background_item_cyan
+            2 -> R.color.background_item_yellow
+            3 -> R.color.background_item_green
+            4 -> R.color.background_item_magenta
+            5 -> R.color.background_item_blue
+            6 -> R.color.background_item_red
+            7 -> R.color.background_item_orange
+            8 -> R.color.background_item_pink
+            9 -> R.color.background_item_light_green
+            else -> R.color.background_item_gray
+        }
 }

@@ -10,9 +10,10 @@ import com.example.rickandmortylocation.model.network.Location
 class LocationAdapter(private val showToast: (Int, Int, String) -> Unit) :
     RecyclerView.Adapter<LocationViewHolder>() {
 
-    private val listLocation: MutableList<Location> = mutableListOf()
+    private val locations: MutableList<Location> = mutableListOf()
 
-    override fun getItemCount(): Int = listLocation.size
+    override fun getItemCount(): Int =
+        locations.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val itemView = LayoutInflater
@@ -22,12 +23,12 @@ class LocationAdapter(private val showToast: (Int, Int, String) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
-        val location: Location = listLocation[position]
+        val location: Location = locations[position]
         holder.bind(location, showToast)
     }
 
-    fun updateListLocation(listLocation: List<Location>) {
-        this.listLocation.addAll(listLocation)
+    fun addItems(locations: List<Location>) {
+        this.locations.addAll(locations)
         notifyDataSetChanged()
     }
 }

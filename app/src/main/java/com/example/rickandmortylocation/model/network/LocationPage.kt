@@ -1,7 +1,5 @@
 package com.example.rickandmortylocation.model.network
 
-import com.example.rickandmortylocation.model.network.Info
-import com.example.rickandmortylocation.model.network.Location
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

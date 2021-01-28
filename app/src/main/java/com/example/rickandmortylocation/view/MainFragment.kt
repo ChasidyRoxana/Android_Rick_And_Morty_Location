@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.PluralsRes
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,40 +24,26 @@ class MainFragment : Fragment(R.layout.fragment_main), MainContract.MainView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i("TAG", "create fragment")
         val app = requireActivity().application as App
         presenter = Presenter(this, app.repository)
-        setUpAdapter()
         presenter.onCreate()
         initListeners()
     }
 
-    private fun setUpAdapter() {
+    private fun initListeners() {
+        bReconnection.setOnClickListener { presenter.onReconnectionButtonClicked() }
+    }
+
+    override fun setupAdapter() {
         locationAdapter = LocationAdapter(::showToast)
         layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = locationAdapter
         recyclerView.layoutManager = layoutManager
     }
 
-    private fun initListeners() {
-        recyclerView.addOnScrollListener(createScrollListener())
-
-        bReconnection.setOnClickListener { presenter.onRequestNextLocations() }
-    }
-
-    private fun createScrollListener(): RecyclerView.OnScrollListener =
-        object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val itemCount: Int = layoutManager.itemCount
-                val lastVisibleItem: Int = layoutManager.findLastVisibleItemPosition()
-                if (lastVisibleItem == itemCount - 1) {
-                    presenter.onRequestNextLocations()
-                }
-            }
-        }
-
-    override fun updateRecyclerView(locationList: List<Location>) {
-        locationAdapter.updateListLocation(locationList)
+    override fun addItemsToRecyclerView(locations: List<Location>) {
+        locationAdapter.addItems(locations)
     }
 
     override fun showToast(@PluralsRes resId: Int, countResidents: Int, locationName: String) {
@@ -66,24 +51,38 @@ class MainFragment : Fragment(R.layout.fragment_main), MainContract.MainView {
         Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 
-    override fun clearScrollListeners() {
+    override fun addOnScrollListener() {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val itemCount: Int = layoutManager.itemCount
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                if (lastVisibleItemPosition == itemCount - 1) {
+                    presenter.onScrolledToLastElement()
+                }
+            }
+        })
+    }
+
+    override fun clearOnScrollListeners() {
         recyclerView.clearOnScrollListeners()
     }
 
-    override fun setReconnectionButtonVisibility(visibility: Boolean) {
-        bReconnection.visibility = if (visibility) {
+    override fun setReconnectionButtonVisibility(isVisible: Boolean) {
+        Log.i("TAG", "reconnection isVisible = $isVisible")
+        bReconnection.visibility = if (isVisible) {
             View.VISIBLE
         } else {
             View.INVISIBLE
         }
     }
 
-    override fun setProgressBarVisibility(visibility: Boolean) {
-        progressBar.visibility = if (visibility) {
-            ProgressBar.VISIBLE
+    override fun setProgressBarVisibility(isVisible: Boolean) {
+        Log.i("TAG", "progress bar isVisible = $isVisible")
+        progressBar.visibility = if (isVisible) {
+            View.VISIBLE
         } else {
-            ProgressBar.INVISIBLE
+            View.INVISIBLE
         }
     }
-
 }

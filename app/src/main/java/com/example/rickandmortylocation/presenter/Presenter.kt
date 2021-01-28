@@ -10,43 +10,53 @@ import java.net.UnknownHostException
 class Presenter(private val view: MainContract.MainView, private val repository: Repository) :
     MainContract.MAinPresenter {
 
-    private var loading: Boolean = false
-
     override fun onCreate() {
-        val locations = repository.loadLocations()
-        view.updateRecyclerView(locations)
-        onRequestNextLocations()
+        view.setupAdapter()
+        view.addItemsToRecyclerView(repository.loadLocations())
+        view.setProgressBarVisibility(repository.isLoading)
+        view.setReconnectionButtonVisibility(repository.isReconnection)
+        repository.setRequestLocationPageListener(createRequestLocationPageListener())
+        if (!repository.isAllDataLoaded) {
+            view.addOnScrollListener()
+        }
+        if (repository.isFirstLaunch) {
+            requestNextLocations()
+        }
     }
 
-    override fun onRequestNextLocations() {
-        if (!loading) {
-            loadingState(true)
-            view.setReconnectionButtonVisibility(false)
-            repository.setRequestLocationLoadPageListener(getLoadPageListener())
+    override fun onScrolledToLastElement() {
+        if (!repository.isReconnection) {
+            requestNextLocations()
+        }
+    }
+
+    override fun onReconnectionButtonClicked() {
+        requestNextLocations()
+    }
+
+    private fun requestNextLocations() {
+        if (!repository.isLoading) {
+            view.setProgressBarVisibility(true)
             repository.requestNextLocations()
         }
     }
 
-    private fun getLoadPageListener(): RequestLocationPageListener =
+    private fun createRequestLocationPageListener(): RequestLocationPageListener =
         object : RequestLocationPageListener {
             override fun onError(e: Exception) {
-                loadingState(false)
+                view.setProgressBarVisibility(repository.isLoading)
                 if (e is UnknownHostException) {
-                    view.setReconnectionButtonVisibility(true)
+                    view.setReconnectionButtonVisibility(repository.isReconnection)
                 }
             }
 
-            override fun onSuccess(locationList: List<Location>, moreData: Boolean) {
-                view.updateRecyclerView(locationList)
-                loadingState(false)
-                if (!moreData) {
-                    view.clearScrollListeners()
+            override fun onSuccess(locationList: List<Location>) {
+                view.setProgressBarVisibility(repository.isLoading)
+                view.setReconnectionButtonVisibility(repository.isReconnection)
+                view.addItemsToRecyclerView(locationList)
+                if (repository.isAllDataLoaded) {
+                    view.clearOnScrollListeners()
                 }
             }
         }
-
-    private fun loadingState(isLoading: Boolean) {
-        view.setProgressBarVisibility(isLoading)
-        loading = isLoading
-    }
 }
