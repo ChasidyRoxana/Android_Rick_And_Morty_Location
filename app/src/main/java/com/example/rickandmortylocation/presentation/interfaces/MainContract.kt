@@ -20,5 +20,6 @@ interface MainContract {
         fun onScrolledToLastElement()
         fun onItemClicked(location: Location)
         fun onReconnectionButtonClicked()
+        fun onDestroy()
     }
 }

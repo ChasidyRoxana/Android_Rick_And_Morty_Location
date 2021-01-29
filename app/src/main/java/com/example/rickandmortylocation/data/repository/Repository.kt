@@ -25,10 +25,15 @@ class Repository(private val locationApiService: LocationApiService) {
     private var locationsFromResponse: List<Location> = listOf()
     private var locationInfo: Info? = null
     private var currentPage: Int = 0
-    private var requestLocationPageListener: RequestLocationPageListener? = null
+    private var requestLocationPageListeners: MutableList<RequestLocationPageListener> =
+        mutableListOf()
 
     fun setRequestLocationPageListener(requestLocationPageListener: RequestLocationPageListener) {
-        this.requestLocationPageListener = requestLocationPageListener
+        requestLocationPageListeners.add(requestLocationPageListener)
+    }
+
+    fun clearRequestLocationPageListener(requestLocationPageListener: RequestLocationPageListener) {
+        requestLocationPageListeners.remove(requestLocationPageListener)
     }
 
     fun getLoadedLocations() =
@@ -41,7 +46,7 @@ class Repository(private val locationApiService: LocationApiService) {
             val locationPageCallback = locationApiService.getLocationPage(currentPage + 1)
             callbackPageProcessing(locationPageCallback)
         } else {
-            requestLocationPageListener?.onError(Exception())
+            requestLocationPageListeners.forEach { it.onError(Exception()) }
         }
     }
 
@@ -70,13 +75,13 @@ class Repository(private val locationApiService: LocationApiService) {
         isLoading = false
         isReconnection = false
         currentPage++
-        requestLocationPageListener?.onSuccess(locationsFromResponse)
+        requestLocationPageListeners.forEach { it.onSuccess(locationsFromResponse) }
     }
 
     private fun onError(e: Exception) {
         isLoading = false
         isReconnection = true
-        requestLocationPageListener?.onError(e)
+        requestLocationPageListeners.forEach { it.onError(e) }
     }
 
 }

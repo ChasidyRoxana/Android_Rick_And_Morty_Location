@@ -11,6 +11,7 @@ import java.net.UnknownHostException
 class Presenter(private val view: MainContract.MainView, private val repository: Repository) :
     MainContract.MainPresenter {
 
+    private val requestLocationPageListener = createRequestLocationPageListener()
     private val isAllDataLoaded: Boolean
         get() = repository.isAllDataLoaded
 
@@ -25,7 +26,7 @@ class Presenter(private val view: MainContract.MainView, private val repository:
         view.addItemsToRecyclerView(repository.getLoadedLocations())
         view.setProgressBarVisibility(isLoading)
         view.setReconnectionButtonVisibility(isReconnection)
-        repository.setRequestLocationPageListener(createRequestLocationPageListener())
+        repository.setRequestLocationPageListener(requestLocationPageListener)
         if (!isAllDataLoaded) {
             view.addOnScrollListener()
         }
@@ -48,6 +49,10 @@ class Presenter(private val view: MainContract.MainView, private val repository:
         val pluralsId = R.plurals.residents_in_location
         val countResidents: Int = location.residents?.size ?: 0
         view.showToast(pluralsId, countResidents, location.name)
+    }
+
+    override fun onDestroy() {
+        repository.clearRequestLocationPageListener(requestLocationPageListener)
     }
 
     private fun requestNextLocationsAndShowProgressBar() {

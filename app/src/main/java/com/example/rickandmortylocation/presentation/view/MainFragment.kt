@@ -81,8 +81,13 @@ class MainFragment : Fragment(R.layout.fragment_main), MainContract.MainView {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        locationAdapter = null
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        locationAdapter = null
+        presenter.onDestroy()
     }
 }
