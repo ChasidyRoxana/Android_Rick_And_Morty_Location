@@ -1,5 +1,6 @@
-package com.example.rickandmortylocation.model.network
+package com.example.rickandmortylocation.data.network
 
+import com.example.rickandmortylocation.data.network.models.LocationPage
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

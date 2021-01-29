@@ -1,13 +1,13 @@
-package com.example.rickandmortylocation.adapter
+package com.example.rickandmortylocation.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rickandmortylocation.adapter.viewholder.LocationViewHolder
+import com.example.rickandmortylocation.presentation.adapter.viewholder.LocationViewHolder
 import com.example.rickandmortylocation.R
-import com.example.rickandmortylocation.model.network.Location
+import com.example.rickandmortylocation.data.network.models.Location
 
-class LocationAdapter(private val showToast: (Int, Int, String) -> Unit) :
+class LocationAdapter(private val onItemClicked: (Location) -> Unit) :
     RecyclerView.Adapter<LocationViewHolder>() {
 
     private val locations: MutableList<Location> = mutableListOf()
@@ -24,7 +24,7 @@ class LocationAdapter(private val showToast: (Int, Int, String) -> Unit) :
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
         val location: Location = locations[position]
-        holder.bind(location, showToast)
+        holder.bind(location, onItemClicked)
     }
 
     fun addItems(locations: List<Location>) {

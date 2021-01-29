@@ -7,15 +7,4 @@
     <color name="pink_700">#FFB53F51</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <color name="background_item_gray">#0A212328</color>
-    <color name="background_item_red">#0AF44336</color>
-    <color name="background_item_magenta">#0A9C27B0</color>
-    <color name="background_item_blue">#0A3F51B5</color>
-    <color name="background_item_green">#0A4CAF50</color>
-    <color name="background_item_yellow">#0AFFEB3B</color>
-    <color name="background_item_orange">#0AFF9800</color>
-    <color name="background_item_cyan">#0A00BCD4</color>
-    <color name="background_item_pink">#0AE91E63</color>
-    <color name="background_item_light_green">#0A6CFD05</color>
 </resources>

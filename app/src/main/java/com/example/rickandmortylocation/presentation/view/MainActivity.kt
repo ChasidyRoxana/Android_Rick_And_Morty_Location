@@ -1,4 +1,4 @@
-package com.example.rickandmortylocation.view
+package com.example.rickandmortylocation.presentation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

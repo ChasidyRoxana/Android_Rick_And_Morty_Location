@@ -1,4 +1,4 @@
-package com.example.rickandmortylocation.model.network
+package com.example.rickandmortylocation.data.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
