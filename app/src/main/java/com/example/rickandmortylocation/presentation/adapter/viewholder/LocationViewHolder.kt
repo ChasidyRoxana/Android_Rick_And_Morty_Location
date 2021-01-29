@@ -2,7 +2,6 @@ package com.example.rickandmortylocation.presentation.adapter.viewholder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rickandmortylocation.R
 import com.example.rickandmortylocation.data.network.models.Location
 import kotlinx.android.synthetic.main.recyclerview_item_card.view.*
 
