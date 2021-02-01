@@ -14,10 +14,8 @@ class Presenter(private val view: MainContract.MainView, private val repository:
     private val requestLocationPageListener = createRequestLocationPageListener()
     private val isAllDataLoaded: Boolean
         get() = repository.isAllDataLoaded
-
     private val isLoading: Boolean
         get() = repository.isLoading
-
     private val isReconnection: Boolean
         get() = repository.isReconnection
 
@@ -51,7 +49,7 @@ class Presenter(private val view: MainContract.MainView, private val repository:
         view.showToast(pluralsId, countResidents, location.name)
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         repository.clearRequestLocationPageListener(requestLocationPageListener)
     }
 
