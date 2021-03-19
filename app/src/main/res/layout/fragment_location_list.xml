@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.view.MainFragment">
+    tools:context=".presentation.view.LocationListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -18,33 +18,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/recyclerview_item_card" />
+        tools:listitem="@layout/list_item_briefly_card" />
 
-    <Button
-        android:id="@+id/bReconnection"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bReconnect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_horizontal_button_reconnection"
         android:layout_marginBottom="@dimen/margin_bottom_button_reconnection"
-        android:backgroundTint="@color/pink_200"
         android:drawableEnd="@android:drawable/stat_notify_sync_noanim"
-        android:text="@string/error_connection"
+        android:text="@string/error_connect"
         android:textAllCaps="false"
         android:textSize="@dimen/text_size_button_reconnection"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/progressBar"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/bReconnect"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bReconnect"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

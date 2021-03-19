@@ -1,6 +1,6 @@
 package com.example.rickandmortylocation.presentation.interfaces
 
-import com.example.rickandmortylocation.data.network.models.Location
+import com.example.rickandmortylocation.domain.models.Location
 import java.lang.Exception
 
 interface RequestLocationPageListener {

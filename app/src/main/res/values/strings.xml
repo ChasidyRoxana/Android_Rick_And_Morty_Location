@@ -1,14 +1,28 @@
 <resources>
     <string name="app_name" translatable="false">Rick And Morty Location</string>
 
-    <string name="item_description_type">Type:</string>
+    <string name="div_divider_line">Dividing line</string>
 
-    <string name="description_reconnect">Reconnect</string>
+    <string name="text_location_type">Type: %1$s</string>
+    <string name="icon_arrow_right">Иконка подробнее</string>
 
-    <string name="error_connection">Failed to load data. Click to try again</string>
 
+
+    <string name="detail_location_dimension">Dimension: %1$s</string>
+    <string name="detail_count_residents">Count of residents: %1$d</string>
+    <string name="detail_among_residents_gender">Gender of residents:</string>
+    <string name="detail_gender_female">Female: %1$d</string>
+    <string name="detail_gender_male">Male: %1$d</string>
+    <string name="detail_gender_genderless">Genderless: %1$d</string>
+    <string name="detail_gender_unknown">Unknown: %1$d</string>
+
+    <string name="desc_reconnect">Reconnect</string>
+
+    <string name="error_connect">Failed to load data. Click to try again</string>
+
+    <string name="location_clicked">%1$s was clicked. %2$s in this location</string>
     <plurals name="residents_in_location">
-        <item quantity="one">%1$s was clicked. There is %2$d resident in this location</item>
-        <item quantity="other">%1$s was clicked. There are %2$d residents in this location</item>
+        <item quantity="one">There is %1$d resident</item>
+        <item quantity="other">There are %1$d residents</item>
     </plurals>
 </resources>

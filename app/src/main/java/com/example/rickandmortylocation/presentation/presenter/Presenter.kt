@@ -1,33 +1,27 @@
 package com.example.rickandmortylocation.presentation.presenter
 
-import com.example.rickandmortylocation.R
 import com.example.rickandmortylocation.presentation.interfaces.RequestLocationPageListener
 import com.example.rickandmortylocation.presentation.interfaces.MainContract
-import com.example.rickandmortylocation.data.network.models.Location
 import com.example.rickandmortylocation.data.repository.Repository
+import com.example.rickandmortylocation.domain.models.Location
 import java.lang.Exception
-import java.net.UnknownHostException
 
 class Presenter(private val view: MainContract.MainView, private val repository: Repository) :
     MainContract.MainPresenter {
 
     private val requestLocationPageListener = createRequestLocationPageListener()
-    private val isAllDataLoaded: Boolean
-        get() = repository.isAllDataLoaded
+//    private val isAllDataLoaded: Boolean
+//        get() = repository.isAllDataLoaded
     private val isLoading: Boolean
         get() = repository.isLoading
     private val isReconnection: Boolean
         get() = repository.isReconnection
 
     override fun onCreate() {
-        view.setupAdapter()
-        view.addItemsToRecyclerView(repository.getLoadedLocations())
+        view.addItems(repository.getLoadedLocations())
         view.setProgressBarVisibility(isLoading)
         view.setReconnectionButtonVisibility(isReconnection)
-        repository.setRequestLocationPageListener(requestLocationPageListener)
-        if (!isAllDataLoaded) {
-            view.addOnScrollListener()
-        }
+        repository.addRequestLocationPageListener(requestLocationPageListener)
         if (repository.isFirstLaunch) {
             requestNextLocationsAndShowProgressBar()
         }
@@ -44,13 +38,11 @@ class Presenter(private val view: MainContract.MainView, private val repository:
     }
 
     override fun onItemClicked(location: Location) {
-        val pluralsId = R.plurals.residents_in_location
-        val countResidents: Int = location.residents?.size ?: 0
-        view.showToast(pluralsId, countResidents, location.name)
+        view.showToast(location.name, location.countResidents)
     }
 
     override fun onDestroyView() {
-        repository.clearRequestLocationPageListener(requestLocationPageListener)
+        repository.removeRequestLocationPageListener(requestLocationPageListener)
     }
 
     private fun requestNextLocationsAndShowProgressBar() {
@@ -74,16 +66,14 @@ class Presenter(private val view: MainContract.MainView, private val repository:
     private fun onSuccessProcessing(locations: List<Location>) {
         view.setProgressBarVisibility(isLoading)
         view.setReconnectionButtonVisibility(isReconnection)
-        view.addItemsToRecyclerView(locations)
-        if (isAllDataLoaded) {
-            view.clearOnScrollListeners()
-        }
+        view.addItems(locations)
+//        if (isAllDataLoaded) {
+//            view.clearOnScrollListeners()
+//        }
     }
 
     private fun onErrorProcessing(e: Exception) {
         view.setProgressBarVisibility(isLoading)
-        if (e is UnknownHostException) {
-            view.setReconnectionButtonVisibility(isReconnection)
-        }
+        view.setReconnectionButtonVisibility(isReconnection)
     }
 }

@@ -1,12 +1,12 @@
-package com.example.rickandmortylocation.data.network.models
+package com.example.rickandmortylocation.data.models
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-class Location(
-    val id: Int,
+class LocationApi(
+//    val id: Int,
     val name: String,
     val type: String,
-    val dimension: String,
+//    val dimension: String,
     val residents: List<String>?
 )

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmortylocation.presentation.adapter.viewholder.LocationViewHolder
 import com.example.rickandmortylocation.R
-import com.example.rickandmortylocation.data.network.models.Location
+import com.example.rickandmortylocation.domain.models.Location
 
 class LocationAdapter(private val onItemClicked: (Location) -> Unit) :
     RecyclerView.Adapter<LocationViewHolder>() {
@@ -18,7 +18,7 @@ class LocationAdapter(private val onItemClicked: (Location) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val itemView = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.recyclerview_item_card, parent, false)
+            .inflate(R.layout.list_item_briefly_card, parent, false)
         return LocationViewHolder(itemView)
     }
 

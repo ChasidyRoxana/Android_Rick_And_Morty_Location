@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="item_description_type">Тип:</string>
+    <string name="div_divider_line">Dividing line</string>
 
-    <string name="description_reconnect">Переподключение</string>
+    <string name="text_location_type">Тип: %1$s</string>
+    <string name="icon_arrow_right">Иконка подробнее</string>
 
-    <string name="error_connection">Не получилось загрузить данные. Нажмите, чтобы повторить попытку</string>
 
+
+    <string name="detail_location_dimension">Измерение: %1$s</string>
+    <string name="detail_count_residents">Количество жителей: %1$d</string>
+    <string name="detail_among_residents_gender">Пол жителей:</string>
+    <string name="detail_gender_female">Женский: %1$d</string>
+    <string name="detail_gender_male">Мужской: %1$d</string>
+    <string name="detail_gender_genderless">Бесполый: %1$d</string>
+    <string name="detail_gender_unknown">Неизвестный: %1$d</string>
+
+    <string name="desc_reconnect">Переподключение</string>
+
+    <string name="error_connect">Не получилось загрузить данные. Нажмите, чтобы повторить попытку</string>
+
+    <string name="location_clicked">Вы выбрали %1$s. В этой локации %2$s</string>
     <plurals name="residents_in_location">
-        <item quantity="one">Вы выбрали %1$s. В этой локации %2$d житель</item>
-        <item quantity="few">Вы выбрали %1$s. В этой локации %2$d жителя</item>
-        <item quantity="many">Вы выбрали %1$s. В этой локации %2$d жителей</item>
-        <item quantity="other">Вы выбрали %1$s. В этой локации %2$d жителей</item>
+        <item quantity="one">%1$d житель</item>
+        <item quantity="few">%1$d жителя</item>
+        <item quantity="many">%1$d жителей</item>
+        <item quantity="other">%1$d жителей</item>
     </plurals>
 </resources>
