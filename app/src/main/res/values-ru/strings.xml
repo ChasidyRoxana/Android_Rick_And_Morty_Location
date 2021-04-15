@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="div_divider_line">Dividing line</string>
 
     <string name="text_location_type">Тип: %1$s</string>
-    <string name="icon_arrow_right">Иконка подробнее</string>
+    <string name="text_type">Тип</string>
+    <string name="text_dimension">Измерение</string>
+    <string name="text_count_residents">Количество жителей</string>
+
+    <string name="content_description_arrow_right">Иконка подробнее</string>
 
 
 
-    <string name="detail_location_dimension">Измерение: %1$s</string>
-    <string name="detail_count_residents">Количество жителей: %1$d</string>
     <string name="detail_among_residents_gender">Пол жителей:</string>
     <string name="detail_gender_female">Женский: %1$d</string>
     <string name="detail_gender_male">Мужской: %1$d</string>

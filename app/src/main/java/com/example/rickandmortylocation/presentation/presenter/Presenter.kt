@@ -1,15 +1,15 @@
 package com.example.rickandmortylocation.presentation.presenter
 
-import com.example.rickandmortylocation.presentation.interfaces.RequestLocationPageListener
-import com.example.rickandmortylocation.presentation.interfaces.MainContract
+import com.example.rickandmortylocation.presentation.model.RequestLocationPageListener
+import com.example.rickandmortylocation.presentation.model.MainContract
 import com.example.rickandmortylocation.data.repository.Repository
-import com.example.rickandmortylocation.domain.models.Location
+import com.example.rickandmortylocation.domain.model.Location
 import java.lang.Exception
 
 class Presenter(private val view: MainContract.MainView, private val repository: Repository) :
     MainContract.MainPresenter {
 
-    private val requestLocationPageListener = createRequestLocationPageListener()
+//    private val requestLocationPageListener = createRequestLocationPageListener()
 //    private val isAllDataLoaded: Boolean
 //        get() = repository.isAllDataLoaded
     private val isLoading: Boolean
@@ -21,7 +21,7 @@ class Presenter(private val view: MainContract.MainView, private val repository:
         view.addItems(repository.getLoadedLocations())
         view.setProgressBarVisibility(isLoading)
         view.setReconnectionButtonVisibility(isReconnection)
-        repository.addRequestLocationPageListener(requestLocationPageListener)
+//        repository.addRequestLocationPageListener(requestLocationPageListener)
         if (repository.isFirstLaunch) {
             requestNextLocationsAndShowProgressBar()
         }
@@ -42,7 +42,7 @@ class Presenter(private val view: MainContract.MainView, private val repository:
     }
 
     override fun onDestroyView() {
-        repository.removeRequestLocationPageListener(requestLocationPageListener)
+//        repository.removeRequestLocationPageListener(requestLocationPageListener)
     }
 
     private fun requestNextLocationsAndShowProgressBar() {
@@ -52,28 +52,28 @@ class Presenter(private val view: MainContract.MainView, private val repository:
         }
     }
 
-    private fun createRequestLocationPageListener(): RequestLocationPageListener =
-        object : RequestLocationPageListener {
-            override fun onError(e: Exception) {
-                onErrorProcessing(e)
-            }
-
-            override fun onSuccess(locations: List<Location>) {
-                onSuccessProcessing(locations)
-            }
-        }
-
-    private fun onSuccessProcessing(locations: List<Location>) {
-        view.setProgressBarVisibility(isLoading)
-        view.setReconnectionButtonVisibility(isReconnection)
-        view.addItems(locations)
-//        if (isAllDataLoaded) {
-//            view.clearOnScrollListeners()
+//    private fun createRequestLocationPageListener(): RequestLocationPageListener =
+//        object : RequestLocationPageListener {
+//            override fun onError(e: Exception) {
+//                onErrorProcessing(e)
+//            }
+//
+//            override fun onSuccess(locations: List<Location>) {
+//                onSuccessProcessing(locations)
+//            }
 //        }
-    }
-
-    private fun onErrorProcessing(e: Exception) {
-        view.setProgressBarVisibility(isLoading)
-        view.setReconnectionButtonVisibility(isReconnection)
-    }
+//
+//    private fun onSuccessProcessing(locations: List<Location>) {
+//        view.setProgressBarVisibility(isLoading)
+//        view.setReconnectionButtonVisibility(isReconnection)
+//        view.addItems(locations)
+////        if (isAllDataLoaded) {
+////            view.clearOnScrollListeners()
+////        }
+//    }
+//
+//    private fun onErrorProcessing(e: Exception) {
+//        view.setProgressBarVisibility(isLoading)
+//        view.setReconnectionButtonVisibility(isReconnection)
+//    }
 }

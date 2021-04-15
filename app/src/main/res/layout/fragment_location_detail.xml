@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,82 +13,138 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textAppearance="?attr/textAppearanceHeadline4"
+        android:textAppearance="?textAppearanceHeadline1"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Earth" />
 
-    <ImageView
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/shape_dividing_line"
+        app:layout_constraintTop_toBottomOf="@id/tvDetailLocationName" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:contentDescription="@string/div_divider_line"
-        android:src="@drawable/shape_dividing_line" />
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:textAppearance="?textAppearanceHeadline3"
+        app:layout_constraintTop_toBottomOf="@id/tvDetailLocationName"
+        tools:text="Space station" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDetailLocationType"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvDescriptionType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/text_type"
+        android:textAppearance="?textAppearanceOverline"
+        app:layout_constraintTop_toBottomOf="@id/tvType" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDimension"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_parameter"
-        tools:text="@string/text_location_type" />
+        android:gravity="center_horizontal"
+        android:textAppearance="?textAppearanceHeadline3"
+        app:layout_constraintTop_toBottomOf="@id/tvDescriptionType"
+        tools:text="Dimension" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDetailLocationDimension"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvDescriptionDimension"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:gravity="center_horizontal"
+        android:text="@string/text_dimension"
+        android:textAppearance="?textAppearanceOverline"
+        app:layout_constraintTop_toBottomOf="@id/tvDimension" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCountResidents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_parameter"
-        tools:text="@string/detail_location_dimension" />
+        android:gravity="center_horizontal"
+        android:textAppearance="?textAppearanceHeadline3"
+        app:layout_constraintTop_toBottomOf="@id/tvDescriptionDimension"
+        tools:text="15" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDetailCountResidents"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvDescriptionCountResidents"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline5"
-        android:layout_marginTop="@dimen/margin_top_parameter"
-        tools:text="@string/detail_count_residents" />
+        android:gravity="center_horizontal"
+        android:text="@string/text_count_residents"
+        android:textAppearance="?textAppearanceOverline"
+        app:layout_constraintTop_toBottomOf="@id/tvCountResidents" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDetailAmongResidentsGender"
+        android:id="@+id/tvResidentsGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/detail_among_residents_gender"
+        android:textAppearance="?textAppearanceHeadline3"
+        app:layout_constraintTop_toBottomOf="@id/tvDescriptionCountResidents" />
+
+    <include
+        android:id="@+id/GenderFemale"
+        layout="@layout/layout_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline5"
-        android:layout_marginTop="@dimen/margin_top_list_element"
-        android:text="@string/detail_among_residents_gender" />
+        android:layout_marginTop="8dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/GenderMale"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/barrier"
+        app:layout_constraintTop_toBottomOf="@id/tvResidentsGender"
+        app:layout_constraintWidth_percent="0.45" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDetailResidentGenderFemale"
+    <include
+        android:id="@+id/GenderMale"
+        layout="@layout/layout_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        android:layout_marginStart="@dimen/margin_start_list_element"
-        android:layout_marginTop="@dimen/margin_top_list_element"
-        tools:text="@string/detail_gender_female" />
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toTopOf="@id/barrier"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/GenderFemale"
+        app:layout_constraintTop_toBottomOf="@+id/tvResidentsGender"
+        app:layout_constraintWidth_percent="0.45" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDetailResidentGenderMale"
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        android:layout_marginStart="@dimen/margin_start_list_element"
-        android:layout_marginTop="@dimen/margin_top_list_element"
-        tools:text="@string/detail_gender_male" />
+        app:barrierDirection="top" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDetailResidentGenderGenderless"
+    <include
+        android:id="@+id/GenderGenderless"
+        layout="@layout/layout_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        android:layout_marginStart="@dimen/margin_start_list_element"
-        android:layout_marginTop="@dimen/margin_top_list_element"
-        tools:text="@string/detail_gender_genderless" />
+        android:layout_marginTop="8dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/GenderUnknown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:layout_constraintWidth_percent="0.45" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDetailResidentGenderUnknown"
+    <include
+        android:id="@+id/GenderUnknown"
+        layout="@layout/layout_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        android:layout_marginStart="@dimen/margin_start_list_element"
-        android:layout_marginTop="@dimen/margin_top_list_element"
-        tools:text="@string/detail_gender_unknown" />
+        android:layout_marginTop="8dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/GenderGenderless"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:layout_constraintWidth_percent="0.45" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

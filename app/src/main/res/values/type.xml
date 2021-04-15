@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Typography-->
+
+    <style name="TextAppearance.RickAndMortyLocation.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textColor">?colorOnBackground</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="TextAppearance.RickAndMortyLocation.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textColor">?colorOnBackground</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.RickAndMortyLocation.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textColor">?colorOnBackground</item>
+        <item name="android:textSize">24sp</item>
+        <item name="fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="TextAppearance.RickAndMortyLocation.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">?colorOnBackgroundBody1</item>
+    </style>
+</resources>

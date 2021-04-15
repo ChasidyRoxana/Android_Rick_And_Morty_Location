@@ -30,6 +30,6 @@ class NetworkService {
         retrofit.create()
 
     private companion object {
-        private const val BASE_URL = "https://rickandmortyapi.com/api/"
+        private const val BASE_URL = "https://rickandmortyapi.com/api/" // todo delete
     }
 }

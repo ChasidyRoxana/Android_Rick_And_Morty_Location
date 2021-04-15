@@ -1,15 +1,15 @@
 package com.example.rickandmortylocation.presentation.adapter.viewholder
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rickandmortylocation.domain.models.Location
-import kotlinx.android.synthetic.main.list_item_briefly_card.view.*
+import com.example.rickandmortylocation.databinding.ViewHolderLocationItemBinding
+import com.example.rickandmortylocation.presentation.model.LocationItem
 
-class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class LocationViewHolder(private val binding: ViewHolderLocationItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(location: Location, onItemClicked: (Location) -> Unit) {
-        itemView.tvLocationName.text = location.name
-        itemView.tvLocationType.text = location.type
-        itemView.setOnClickListener { onItemClicked(location) }
+    fun bind(locationItem: LocationItem, onShowDetailClicked: (LocationItem) -> Unit) {
+        binding.tvLocationName.text = locationItem.name
+        binding.tvLocationType.text = locationItem.type
+        binding.ivRightArrow.setOnClickListener { onShowDetailClicked(locationItem) }
     }
 }

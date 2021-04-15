@@ -6,22 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".presentation.view.LocationListFragment">
 
+    <!--    swipeToRefresh ?-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingVertical="@dimen/padding_vertical_recyclerview"
-        android:scrollbars="vertical"
+        android:paddingHorizontal="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/list_item_briefly_card" />
+        tools:itemCount="8"
+        tools:listitem="@layout/view_holder_location_item" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/bReconnect"
+        android:id="@+id/bError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_horizontal_button_reconnection"
@@ -29,8 +27,9 @@
         android:drawableEnd="@android:drawable/stat_notify_sync_noanim"
         android:text="@string/error_connect"
         android:textAllCaps="false"
-        android:textSize="@dimen/text_size_button_reconnection"
-        android:visibility="invisible"
+        android:textAppearance="?textAppearanceBody1"
+        android:visibility="gone"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,11 +39,11 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/bReconnect"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/bError"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bReconnect"
+        app:layout_constraintTop_toTopOf="@+id/bError"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

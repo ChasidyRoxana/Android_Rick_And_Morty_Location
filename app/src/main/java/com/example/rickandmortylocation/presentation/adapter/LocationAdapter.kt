@@ -3,32 +3,30 @@ package com.example.rickandmortylocation.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rickandmortylocation.databinding.ViewHolderLocationItemBinding
 import com.example.rickandmortylocation.presentation.adapter.viewholder.LocationViewHolder
-import com.example.rickandmortylocation.R
-import com.example.rickandmortylocation.domain.models.Location
+import com.example.rickandmortylocation.presentation.model.LocationItem
 
-class LocationAdapter(private val onItemClicked: (Location) -> Unit) :
+class LocationAdapter(private val onShowDetailClicked: (LocationItem) -> Unit) :
     RecyclerView.Adapter<LocationViewHolder>() {
 
-    private val locations: MutableList<Location> = mutableListOf()
+    private val locations: MutableList<LocationItem> = mutableListOf()
 
     override fun getItemCount(): Int =
         locations.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
-        val itemView = LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.list_item_briefly_card, parent, false)
-        return LocationViewHolder(itemView)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ViewHolderLocationItemBinding.inflate(layoutInflater, parent, false)
+        return LocationViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
-        val location: Location = locations[position]
-        holder.bind(location, onItemClicked)
+        holder.bind(locations[position], onShowDetailClicked)
     }
 
-    fun addItems(locations: List<Location>) {
-        this.locations.addAll(locations)
-        notifyDataSetChanged()
+    fun addItems(locationItems: List<LocationItem>) {
+        this.locations.addAll(locationItems)
+//        notifyDataSetChanged()
     }
 }

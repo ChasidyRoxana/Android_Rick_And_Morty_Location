@@ -4,28 +4,55 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rickandmortylocation.App
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.rickandmortylocation.R
-import com.example.rickandmortylocation.domain.models.Location
+import com.example.rickandmortylocation.databinding.FragmentLocationListBinding
 import com.example.rickandmortylocation.presentation.adapter.LocationAdapter
-import com.example.rickandmortylocation.presentation.interfaces.MainContract
-import com.example.rickandmortylocation.presentation.presenter.Presenter
-import kotlinx.android.synthetic.main.fragment_location_list.*
+import com.example.rickandmortylocation.presentation.command.LocationListCommand
+import com.example.rickandmortylocation.presentation.model.LocationItem
+import com.example.rickandmortylocation.presentation.model.LocationListScreenState
+import com.example.rickandmortylocation.presentation.model.MainContract
+import com.example.rickandmortylocation.presentation.viewmodel.LocationListViewModel
 
-class LocationListFragment : Fragment(R.layout.fragment_location_list), MainContract.MainView {
+class LocationListFragment :
+    BaseFragment<LocationListScreenState, LocationListCommand, LocationListViewModel>(
+        R.layout.fragment_location_list,
+        LocationListViewModel::class.java
+    ) {
 
-    private lateinit var presenter: MainContract.MainPresenter
+    private val binding by viewBinding(FragmentLocationListBinding::bind)
     private var locationAdapter: LocationAdapter? = null
+
+    private lateinit var presenter: MainContract.MainPresenter // todo delete
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val app = requireActivity().application as App
-        presenter = Presenter(this, app.repository)
+//        val app = requireActivity().application as App
+//        presenter = Presenter(this, app.repository)
         initView()
         presenter.onCreate()
+        viewModel.init()
+    }
+
+    override fun renderView(model: LocationListScreenState) {
+        setErrorMessageVisible(model.isErrorMessageVisible)
+    }
+
+    override fun executeCommand(command: LocationListCommand) {
+        when (command) {
+            is LocationListCommand.NavigateToLocationDetailScreen -> navigateToLocationDetailScreen(command.locationId)
+        }
+    }
+
+    private fun setErrorMessageVisible(isVisible: Boolean) {
+        binding.bError.isVisible = isVisible
+    }
+
+    private fun navigateToLocationDetailScreen(locationId: String) {
+        val args = LocationDetailFragmentArgs(locationId).toBundle()
+        navController.navigate(R.id.action_locationListFragment_to_locationDetailFragment, args)
     }
 
     private fun initView() {
@@ -34,17 +61,17 @@ class LocationListFragment : Fragment(R.layout.fragment_location_list), MainCont
     }
 
     private fun setupAdapter() {
-        locationAdapter = LocationAdapter(presenter::onItemClicked)
-        recyclerView.adapter = locationAdapter
+        locationAdapter = LocationAdapter(viewModel::onShowDetailClicked)
+        binding.recyclerView.adapter = locationAdapter
     }
 
     private fun initListeners() {
-        bReconnect.setOnClickListener { presenter.onReconnectionButtonClicked() }
+//        binding.bError.setOnClickListener { presenter.onReconnectionButtonClicked() }
 
-        recyclerView.addOnScrollListener(createOnScrollListener())
+//        binding.recyclerView.addOnScrollListener(createOnScrollListener())
     }
 
-    override fun showToast(locationName: String, countResidents: Int) {
+    fun showToast(locationName: String, countResidents: Int) {
         val stringRes = R.string.location_clicked
         val pluralRes = R.plurals.residents_in_location
         val residentsText = resources.getQuantityString(pluralRes, countResidents, countResidents)
@@ -52,19 +79,14 @@ class LocationListFragment : Fragment(R.layout.fragment_location_list), MainCont
         context.run {
             Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
         }
-//        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 
-    override fun addItems(locations: List<Location>) {
+    fun addItems(locations: List<LocationItem>) {
         locationAdapter?.addItems(locations)
     }
 
-    override fun setReconnectionButtonVisibility(isVisible: Boolean) {
-        bReconnect.isVisible = isVisible
-    }
-
-    override fun setProgressBarVisibility(isVisible: Boolean) {
-        progressBar.isVisible = isVisible
+    fun setProgressBarVisibility(isVisible: Boolean) {
+        binding.progressBar.isVisible = isVisible
     }
 
     private fun createOnScrollListener() =
@@ -81,7 +103,7 @@ class LocationListFragment : Fragment(R.layout.fragment_location_list), MainCont
         }
 
     private fun clearListeners() {
-        recyclerView.clearOnScrollListeners()
+        binding.recyclerView.clearOnScrollListeners()
     }
 
     override fun onDestroyView() {

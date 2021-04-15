@@ -1,4 +1,4 @@
-package com.example.rickandmortylocation.data.models
+package com.example.rickandmortylocation.data.model
 
 import kotlinx.serialization.Serializable
 

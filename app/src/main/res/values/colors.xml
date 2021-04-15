@@ -10,5 +10,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="gray">#FFEFEFEF</color>
+    <color name="gray_700">#FF434343</color>
+    <color name="gray_200">#FFD9D9D9</color>
+
+    <color name="gray_100">#FFE9E9E9</color>
+
+    <color name="indigo_500_20">#333F51B5</color>
+    <color name="pink_500_20">#33DB4B57</color>
 </resources>

@@ -1,6 +1,6 @@
-package com.example.rickandmortylocation.presentation.interfaces
+package com.example.rickandmortylocation.presentation.model
 
-import com.example.rickandmortylocation.domain.models.Location
+import com.example.rickandmortylocation.domain.model.Location
 
 interface MainContract {
 

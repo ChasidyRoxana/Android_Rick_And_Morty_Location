@@ -1,4 +1,4 @@
-package com.example.rickandmortylocation.domain.models
+package com.example.rickandmortylocation.domain.model
 
 class ResponseInfo(
     val countLocations: Int,
